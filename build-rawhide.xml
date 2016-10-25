@@ -725,7 +725,9 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <path id="quick.scaladoc.build.path">
       <path refid="quick.compiler.build.path" />
       <path refid="partest.classpath" />
+<!-- HACK
       <path refid="external-modules-nocore" />
+-->
       <pathelement location="${build-quick.dir}/classes/scaladoc" />
     </path>
 
@@ -1045,7 +1047,10 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     </copy>
   </target>
 
-  <target depends="quick.comp" name="quick.interactive">
+  <target name="quick.scaladoc"   depends="quick.comp">
+    <staged-build with="locker"   stage="quick" project="scaladoc"/> </target>
+
+  <target depends="quick.comp, quick.scaladoc" name="quick.interactive">
     <staged-build project="interactive" stage="quick" with="locker" /> </target>
 
   <target depends="quick.repl" name="quick.scalap">
@@ -1056,7 +1061,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
 
 
-  <target depends="quick.repl, quick.interactive, quick.scalap" name="quick.modules" />
+  <target depends="quick.repl, quick.scaladoc, quick.interactive, quick.scalap" name="quick.modules" />
 
   <target depends="quick.lib, quick.reflect, quick.comp, quick.modules" name="quick.bin">
     <staged-bin classpathref="quick.bin.tool.path" stage="quick" />
@@ -1073,7 +1078,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
   <target depends="quick.reflect" name="pack.reflect"> <staged-pack project="reflect" /> </target>
 
   
-  <target depends="quick.comp, quick.interactive, quick.repl" name="pack.comp">
+  <target depends="quick.comp, quick.scaladoc, quick.interactive, quick.repl" name="pack.comp">
     <staged-pack manifest="${build-pack.dir}/META-INF/MANIFEST.MF" project="compiler">
       <pre> 
         <copy todir="${build-pack.dir}/lib">
@@ -1101,7 +1106,8 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     </staged-pack>
   </target>
 
-  
+  <target name="pack.scaladoc" depends="quick.scaladoc">       <staged-pack project="scaladoc"/> </target>
+  <target name="pack.interactive" depends="quick.interactive"> <staged-pack project="interactive"/> </target> 
 
   <target depends="quick.actors" name="pack.actors"> <staged-pack project="actors" /> </target>
 

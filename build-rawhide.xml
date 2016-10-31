@@ -600,7 +600,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <!-- BEGIN HACK -->
 
     <property name="build-asm.dir"           value="${build.dir}/asm"/>
-    <path id="asm.classpath"      path="${build-asm.dir}/classes"/>
+    <path id="asm.classpath"                 path="${build-asm.dir}/classes"/>
 
     <property name="library.starr.jar"       value="${lib.dir}/scala-library.jar"/>
     <property name="reflect.starr.jar"       value="${lib.dir}/scala-reflect.jar"/>
@@ -623,7 +623,6 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
           <path refid="aux.libs"/>
     </path>	  
 
-    <echo message="starr.compiler.path is ${toString:starr.compiler.path}"/>
     <path id="partest.classpath">
           <path refid="pack.compiler.path"/>
     </path>
@@ -745,7 +744,6 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <path refid="external-modules-nocore" />
       -->
     </path>
-    <echo message="quick.bin.tool.path is ${toString:quick.bin.tool.path}"/>
 
     
     <path id="pack.compiler.path">
@@ -786,9 +784,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <fileset dir="${build-quick.dir}/classes/compiler" />
 
       
-      <!-- HACK
       <fileset dir="${build-quick.dir}/classes/scaladoc" />
-      -->
       <fileset dir="${build-quick.dir}/classes/interactive" />
       <fileset dir="${build-quick.dir}/classes/repl" />
     </path>
@@ -834,7 +830,10 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
     
     <path id="scaladoc.classpath">
+      <!-- HACK
       <path refid="external-modules-nocore" />
+      -->
+      <pathelement location="${build-quick.dir}/classes/scaladoc" />
       <pathelement location="${library.jar}" />
       <pathelement location="${reflect.jar}" />
       <pathelement location="${compiler.jar}" />

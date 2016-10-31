@@ -845,7 +845,9 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     </path>
 
     <path id="manual.build.path">
+      <!-- HACK
       <path refid="external-modules-nocore" /> 
+      -->
       <pathelement location="${library.jar}" />
       <pathelement location="${build.dir}/manmaker/classes" />
       <path refid="aux.libs" />  

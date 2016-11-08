@@ -161,10 +161,12 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
   <target depends="desired.jars.uptodate" name="boot" unless="lib.jars.uptodate">
     <echo level="warn" message="Not fetching bootstrap libraries in the Fedora build" />
+   <!-- HACK
     <touch>
       <fileset dir="${basedir}"><patternset refid="desired.jars" /></fileset>
       <mapper from="*.desired.sha1" to="*" type="glob" />
     </touch>
+    -->
   </target>
 
   <target depends="boot" name="init.git">
@@ -267,6 +269,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       
       <echo message="Using Scala ${starr.version} for STARR." />
       <property name="maven-deps-done" value="yep!" />
+      <!-- HACK
     <ns0:resolve><ns0:dependencies><ns0:dependencies id="extra.tasks.fileset">
         <dependency artifactId="bnd" groupId="biz.aQute" version="1.50.0" />
       </ns0:dependencies>
@@ -312,7 +315,9 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
         <dependency artifactId="scala-reflect" groupId="org.scala-lang" version="${starr.version}" />
         <dependency artifactId="scala-compiler" groupId="org.scala-lang" version="${starr.version}" />
       </ns0:dependencies>
-      </ns0:dependencies><files refid="extra.tasks.fileset" /><files refid="junit.fileset" /><files refid="asm.fileset" /><files refid="partest.fileset" /><files refid="scalacheck.fileset" /><files refid="repl.fileset" /><files refid="starr.fileset" /></ns0:resolve></then></if>
+      </ns0:dependencies><files refid="extra.tasks.fileset" /><files refid="junit.fileset" /><files refid="asm.fileset" /><files refid="partest.fileset" /><files refid="scalacheck.fileset" /><files refid="repl.fileset" /><files refid="starr.fileset" /></ns0:resolve>
+-->
+</then></if>
 
 
     
@@ -600,7 +605,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <!-- BEGIN HACK -->
 
     <property name="build-asm.dir"           value="${build.dir}/asm"/>
-    <path id="asm.classpath"                 path="${build-asm.dir}/classes"/>
+    <path id="asm.classpath"                 path="${lib-extra.dir}/scala-asm-${scala-asm.version}.jar"/>
 
     <property name="library.starr.jar"       value="${lib.dir}/scala-library.jar"/>
     <property name="reflect.starr.jar"       value="${lib.dir}/scala-reflect.jar"/>
@@ -853,7 +858,6 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <path refid="aux.libs" />  
     </path>
 
-    
     <path id="sbt.compile.build.path">
       <path refid="scaladoc.classpath" />
       
@@ -1082,12 +1086,12 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
   <target depends="quick.comp, quick.scaladoc, quick.interactive, quick.repl" name="pack.comp">
     <staged-pack manifest="${build-pack.dir}/META-INF/MANIFEST.MF" project="compiler">
       <pre> 
+      <!-- HACK
         <copy todir="${build-pack.dir}/lib">
           <resources refid="repl.fileset" />
-      <!-- HACK
           <mapper classname="org.apache.maven.artifact.ant.VersionMapper" classpathref="maven-ant-tasks.classpath" from="${repl.deps.versions}" to="flatten" />
-      -->
         </copy>
+      -->
         <copy todir="${build-pack.dir}/lib">
           <fileset dir="${lib-extra.dir}">
             <include name="**/*.jar" />

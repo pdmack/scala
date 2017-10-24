@@ -384,7 +384,9 @@
                 <!-- update="true" makes no difference on my machine, so starting from scratch-->
                 <jar-opts/>
                 <path refid="pack.@{project}.files"/>
+		<!-- HACK
                 <zipgroupfileset refid="pack.@{project}.include-jars"/>
+                -->
               </jar>
             </then>
             <else>

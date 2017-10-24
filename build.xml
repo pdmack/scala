@@ -29,7 +29,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
   <target name="nightly"><optimized name="all.done" /></target>
   <target name="nightly.checkall"> <antcall target="all.done"> <param name="partest.scalac_opts" value="-Ycheck:all" /></antcall></target>
 
-  
+
   <target description="Publishes Scala (optimized) without generating docs/testing (library/reflect/compiler/actors/swing/continuations)." name="publish-opt-nodocs">
     <antcall target="publish">
       <param name="docs.skip" value="1" />
@@ -48,7 +48,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     </antcall>
   </target>
 
-  
+
   <target depends="publish.local" name="publish-local" />
   <target name="publish-local-opt"><optimized name="publish-local" /></target>
   <target depends="publish.signed" name="publish-signed" />
@@ -69,7 +69,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
   <target description="Optimized version of partialdist." name="partialdist-opt"> <optimized name="partialdist" /></target>
   <target description="Optimized version of fastdist." name="fastdist-opt">    <optimized name="fastdist" /></target>
 
-  
+
   <target depends="pack-maven.done" name="distpack" />
   <target depends="pack-maven.done" name="distpack-maven" />
   <target description="Builds an optimised distribution." name="distpack-opt"> <optimized name="distpack" /></target>
@@ -86,32 +86,32 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
 
   <property environment="env" />
-  
+
   <property name="build.sysclasspath" value="ignore" />
 
-  
+
   <property name="doc.dir" value="${basedir}/doc" />
   <property name="lib.dir" value="${basedir}/lib" />
   <property name="src.dir" value="${basedir}/src" />
   <property name="partest.dir" value="${basedir}/test" />
 
   <property name="lib-ant.dir" value="${lib.dir}/ant" />
-  
+
   <property name="lib-extra.dir" value="${lib.dir}/extra" />
 
-  
+
   <property file="${basedir}/build.properties" />
 
-  
+
   <property file="${basedir}/build.number" />
 
-  
+
   <property file="${basedir}/versions.properties" />
 
-  
+
   <property name="ant.jar" value="${ant.home}/lib/ant.jar" />
 
-  
+
   <property name="build.dir" value="${basedir}/build" />
   <property name="build-deps.dir" value="${build.dir}/deps" />
   <property name="build-libs.dir" value="${build.dir}/libs" />
@@ -136,11 +136,11 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
   <property name="copyright.string" value="Copyright 2002-2016, LAMP/EPFL" />
 
-  
+
   <property name="java.flags" value="-Xmx256M -Xms32M" />
   <property name="jvm.opts" value="" />
 
-  
+
   <property name="env.ANT_OPTS" value="-Xms1536M -Xmx1536M -Xss1M -XX:MaxPermSize=192M -XX:+UseParallelGC" />
 
   <property name="scalacfork.jvmargs" value="${env.ANT_OPTS} ${jvm.opts}" />
@@ -160,17 +160,14 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
   </target>
 
   <target depends="desired.jars.uptodate" name="boot" unless="lib.jars.uptodate">
-    <echo level="warn" message="Not fetching bootstrap libraries in the Fedora build" />
-   <!-- HACK
     <touch>
       <fileset dir="${basedir}"><patternset refid="desired.jars" /></fileset>
       <mapper from="*.desired.sha1" to="*" type="glob" />
     </touch>
-    -->
   </target>
 
   <target depends="boot" name="init.git">
-    
+
     <exec executable="tools/get-scala-commit-sha" failifexecutionfails="false" osfamily="unix" outputproperty="git.commit.sha" />
     <exec executable="cmd.exe" failifexecutionfails="false" osfamily="windows" outputproperty="git.commit.sha">
       <arg value="/c" />
@@ -184,13 +181,13 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <arg value="-p" />
     </exec>
 
-    
+
     <property name="git.commit.sha" value="unknown" />
     <property name="git.commit.date" value="unknown" />
   </target>
 
   <target depends="init.git" name="init">
-    
+
     <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${lib-ant.dir}/ant-contrib.jar"/>
 
     <property name="scala.ant.min.version" value="1.8.2" />
@@ -198,13 +195,13 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <then><fail message="Ant version ${scala.ant.min.version} is required. You are running ${ant.version}" /></then>
     </if>
 
-    
+
     <path id="aether-ant-tasks.classpath" />
     <typedef classpathref="aether-ant-tasks.classpath" resource="org/eclipse/aether/ant/antlib.xml" uri="antlib:org.eclipse.aether.ant" />
 
-    
 
-    
+
+
     <if><not><isset property="maven-deps-done" /></not><then>
       <mkdir dir="${user.home}/.m2/repository" />
 
@@ -241,7 +238,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
         </else>
       </if>
 
-      
+
       <prepareCross name="scala-xml" />
       <prepareCross name="scala-parser-combinators" />
       <property name="scala-continuations-plugin.cross.suffix" value="_${scala.full.version}" />
@@ -266,7 +263,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <propertyForCrossedArtifact jar="org.scala-lang.plugins:scala-continuations-library" name="scala-continuations-library" />
       <propertyForCrossedArtifact jar="org.scala-lang.modules:scala-swing" name="scala-swing" />
 
-      
+
       <echo message="Using Scala ${starr.version} for STARR." />
       <property name="maven-deps-done" value="yep!" />
       <!-- HACK
@@ -289,9 +286,9 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
         <dependency artifactId="scala-asm" groupId="org.scala-lang.modules" version="${scala-asm.version}" />
       </ns0:dependencies>
       <ns0:dependencies id="partest.fileset">
-        
-        
-        
+
+
+
         <dependency artifactId="scala-partest${partest.cross}" groupId="org.scala-lang.modules" version="${partest.version.number}" />
       </ns0:dependencies>
       <ns0:dependencies id="scalacheck.fileset">
@@ -309,7 +306,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
         <dependency artifactId="scala-swing${scala-swing.cross}" groupId="org.scala-lang.modules" version="${scala-swing.version.number}" />
       </ns0:dependencies>
 
-      
+
       <ns0:dependencies id="starr.fileset">
         <dependency artifactId="scala-library" groupId="org.scala-lang" version="${starr.version}" />
         <dependency artifactId="scala-reflect" groupId="org.scala-lang" version="${starr.version}" />
@@ -320,9 +317,9 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 </then></if>
 
 
-    
 
-    
+
+
     <if><not><equals arg1="${version.bnum}" arg2="0" /></not><then>
       <property name="version.suffix" value="-${version.bnum}" />
     </then></if>
@@ -335,15 +332,15 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
           <property name="osgi.version.suffix" value="-VFINAL" /></then>
         <else>
           <property name="osgi.version.suffix" value="${maven.version.suffix}" /></else></if></then></if></then>
-    <else> 
+    <else>
       <property name="maven.version.suffix" value="${version.suffix}" />
       <property name="osgi.version.suffix" value="${version.suffix}" /></else></if>
 
-    
+
     <if><isset property="maven.version.suffix" /><then>
       <property name="build.release" value="1" /></then></if>
 
-    
+
     <property name="maven.version.suffix" value="-SNAPSHOT" />
 
     <if><equals arg1="${maven.version.suffix}" arg2="-SNAPSHOT" /><then>
@@ -353,7 +350,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <property name="osgi.version.suffix" value="${maven.version.suffix}" />
       <property name="version.suffix" value="${maven.version.suffix}" /></else></if>
 
-    
+
     <property name="maven.version.number" value="${version.major}.${version.minor}.${version.patch}${maven.version.suffix}" />
     <property name="osgi.version.number" value="${version.major}.${version.minor}.${version.patch}.v${git.commit.date}${osgi.version.suffix}-${git.commit.sha}" />
 
@@ -363,7 +360,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <property name="version.number" value="${version.major}.${version.minor}.${version.patch}${version.suffix}-${git.commit.date}-${git.commit.sha}" />
     </else></if>
 
-    
+
     <property name="version.number" value="-unknown-" />
 
     <condition property="has.java6">
@@ -390,7 +387,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       </condition>
     </fail>
 
-    
+
     <property name="sbt.latest.version" value="0.12.4" />
 
     <property name="sbt.src.dir" value="${build-sbt.dir}/${sbt.latest.version}/src" />
@@ -402,39 +399,39 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <property name="sbt.interface.src.url" value="http://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/compiler-interface/${sbt.latest.version}/jars/compiler-interface-src.jar" />
 
 
-    
+
     <property name="scalac.args" value="" />
     <property name="javac.args" value="" />
 
     <property name="scalac.args.always" value="-feature" />
-    <property name="scalac.args.optimise" value="" /> 
+    <property name="scalac.args.optimise" value="" />
     <property name="scalac.args.all" value="${scalac.args.always} ${scalac.args} ${scalac.args.optimise}" />
     <property name="scalac.args.locker" value="${scalac.args.all}" />
     <property name="scalac.args.quick" value="${scalac.args.all}" />
     <property name="scalac.args.strap" value="${scalac.args.quick}" />
 
-    <property name="partest.scalac_opts" value="" /> 
+    <property name="partest.scalac_opts" value="" />
 
-    
+
     <tstamp prefix="time">
       <format locale="en,US" pattern="d MMMM yyyy, HH:mm:ss" property="human" />
       <format pattern="yyyyMMddHHmmss" property="short" />
     </tstamp>
 
-    
+
     <mkdir dir="${lib-extra.dir}" />
 
-    
+
     <path id="aux.libs">
       <pathelement location="${ant.jar}" />
-      
-      
+
+
       <fileset dir="${lib-extra.dir}">
         <include name="**/*.jar" />
       </fileset>
     </path>
 
-    
+
     <echo message="       build time: ${time.human}" />
     <echo message="     java version: ${java.vm.name} ${java.version} (${ant.java.version})" />
     <echo message="        java args: ${env.ANT_OPTS} ${jvm.opts}" />
@@ -458,7 +455,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       </propertyset>
     </echoproperties>
 
-    
+
     <if><equals arg1="${maven.version.suffix}" arg2="-SNAPSHOT" /><then>
       <condition property="version.suffixes.consistent"><and>
         <equals arg1="${osgi.version.suffix}" arg2="" />
@@ -476,11 +473,11 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
           <equals arg1="${version.suffix}" arg2="${maven.version.suffix}" />
         </and></condition></else></if></else></if>
 
-    
+
     <fail message="Version suffixes inconsistent!" unless="version.suffixes.consistent" />
 
 
-    
+
     <if><isset property="update.versions" /><then>
       <echo message="Updating `versions.properties`:" />
       <echo message="starr.version                              = ${starr.version}" />
@@ -517,7 +514,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <path id="forkjoin.classpath" path="${build-forkjoin.dir}/classes/forkjoin" />
     <property name="forkjoin-classes" refid="forkjoin.classpath" />
 
-    
+
     <property name="library.description" value="Scala Standard Library" />
     <property name="library.docroot" value="rootdoc.txt" />
     <property name="library.skipPackages" value="scala.concurrent.impl" />
@@ -528,7 +525,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <property name="compiler.description" value="Scala Compiler" />
     <property name="compiler.docroot" value="rootdoc.txt" />
 
-    
+
     <property name="interactive.description" value="Scala Interactive Compiler" />
     <property name="interactive.package" value="modules." />
     <property name="interactive.name" value="scala-compiler-interactive" />
@@ -582,13 +579,13 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <property name="partest-extras.description" value="Scala Compiler Testing Tool (compiler-specific extras)" />
     <property name="partest-javaagent.description" value="Scala Compiler Testing Tool (compiler-specific java agent)" />
 
-    
+
     <for list="actors,compiler,interactive,scaladoc,library,parser-combinators,partest,partest-extras,partest-javaagent,reflect,scalap,swing,xml,continuations-plugin,continuations-library,repl-jline" param="project">
       <sequential>
-        
-        <init-project-prop default="" name="package" project="@{project}" /> 
-        <init-project-prop default="" name="dir" project="@{project}" /> 
-        <init-project-prop default="scala-@{project}" name="name" project="@{project}" /> 
+
+        <init-project-prop default="" name="package" project="@{project}" />
+        <init-project-prop default="" name="dir" project="@{project}" />
+        <init-project-prop default="scala-@{project}" name="name" project="@{project}" />
         <init-project-prop default="" name="namesuffix" project="@{project}" />
         <init-project-prop default="${osgi.version.number}" name="version" project="@{project}" />
         <init-project-prop default="lib" name="targetdir" project="@{project}" />
@@ -626,7 +623,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <path id="starr.compiler.path">
           <path refid="starr.core.path"/>
           <path refid="aux.libs"/>
-    </path>	  
+    </path>
 
     <path id="partest.classpath">
           <path refid="pack.compiler.path"/>
@@ -634,23 +631,23 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
 
     <!-- END HACK -->
-    
+
     <if><isset property="locker.skip" /><then>
       <echo message="Using STARR to build the quick stage (skipping locker)." />
       <path id="locker.compiler.path" refid="starr.compiler.path" />
-       
+
       <path id="locker.compiler.build.path" refid="starr.compiler.path" />
       <property name="locker.locked" value="locker skipped" /></then>
     <else>
       <path id="locker.compiler.path"><path refid="locker.compiler.build.path" /></path></else></if>
 
-    
+
     <path id="quick.compiler.path"> <path refid="quick.compiler.build.path" /></path>
 
 
-    
 
-    
+
+
     <path id="locker.library.build.path">
       <pathelement location="${build-locker.dir}/classes/library" />
       <path refid="forkjoin.classpath" />
@@ -670,9 +667,9 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <path refid="asm.classpath" />
     </path>
     </then></if>
-    
 
-    
+
+
     <path id="quick.library.build.path">
       <pathelement location="${build-quick.dir}/classes/library" />
       <path refid="forkjoin.classpath" />
@@ -718,7 +715,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <path refid="partest.classpath" />
       <path refid="quick.compiler.build.path" />
       <pathelement location="${build-quick.dir}/classes/repl" />
-      
+
       <pathelement location="${build-quick.dir}/classes/partest-extras" />
     </path>
 
@@ -750,7 +747,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       -->
     </path>
 
-    
+
     <path id="pack.compiler.path">
       <pathelement location="${library.jar}" />
       <pathelement location="${reflect.jar}" />
@@ -767,7 +764,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <pathelement location="${actors.jar}" />
       <pathelement location="${reflect.jar}" />
       <pathelement location="${compiler.jar}" />
-      
+
       <pathelement location="${scalap.jar}" />
       <path refid="repl.deps.classpath" />
       <path refid="aux.libs" />
@@ -788,7 +785,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <path id="pack.compiler.files">
       <fileset dir="${build-quick.dir}/classes/compiler" />
 
-      
+
       <fileset dir="${build-quick.dir}/classes/scaladoc" />
       <fileset dir="${build-quick.dir}/classes/interactive" />
       <fileset dir="${build-quick.dir}/classes/repl" />
@@ -798,7 +795,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       -->
     <property name="pack.compiler.include-jars.defined" value="yeah" />
 
-    
+
 
     <path id="pack.reflect.files">    <fileset dir="${build-quick.dir}/classes/reflect" /> </path>
     <path id="pack.scalap.files">     <fileset dir="${build-quick.dir}/classes/scalap" />  </path>
@@ -806,7 +803,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <path id="pack.partest-extras.files"> <fileset dir="${build-quick.dir}/classes/partest-extras" /> </path>
     <path id="pack.partest-javaagent.files"> <fileset dir="${build-quick.dir}/classes/partest-javaagent" /> </path>
 
-    
+
     <path id="strap.library.build.path">
       <pathelement location="${build-strap.dir}/classes/library" />
       <path refid="forkjoin.classpath" />
@@ -824,7 +821,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <path refid="asm.classpath" />
     </path>
 
-    
+
     <path id="docs.library.build.path">               <path refid="quick.library.build.path" />  </path>
     <path id="docs.reflect.build.path">               <path refid="quick.reflect.build.path" />  </path>
     <path id="docs.compiler.build.path">              <path refid="quick.compiler.build.path" /> </path>
@@ -833,7 +830,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <path id="docs.scalap.build.path">                <path refid="quick.scalap.build.path" />   </path>
     <path id="docs.actors.build.path">                <path refid="quick.actors.build.path" />   </path>
 
-    
+
     <path id="scaladoc.classpath">
       <!-- HACK
       <path refid="external-modules-nocore" />
@@ -843,7 +840,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       <pathelement location="${reflect.jar}" />
       <pathelement location="${compiler.jar}" />
 
-      
+
 
       <pathelement location="${ant.jar}" />
       <path refid="aux.libs" />
@@ -851,21 +848,21 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
     <path id="manual.build.path">
       <!-- HACK
-      <path refid="external-modules-nocore" /> 
+      <path refid="external-modules-nocore" />
       -->
       <pathelement location="${library.jar}" />
       <pathelement location="${build.dir}/manmaker/classes" />
-      <path refid="aux.libs" />  
+      <path refid="aux.libs" />
     </path>
 
     <path id="sbt.compile.build.path">
       <path refid="scaladoc.classpath" />
-      
+
       <pathelement location="${sbt.interface.jar}" />
     </path>
 
 
-    
+
     <path id="partest.compilation.path">
       <path refid="partest.compilation.path.core" />
       <path refid="partest.compilation.path.noncore" />
@@ -877,13 +874,13 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     </path>
     <path id="partest.compilation.path.noncore">
 
-      
 
-      
+
+
       <pathelement location="${scalap.jar}" />
       <pathelement location="${actors.jar}" />
 
-      
+
       <restrict>
         <path refid="partest.classpath" />
         <ns1:not><ns1:or>
@@ -892,7 +889,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       </restrict>
       <pathelement location="${scala-xml}" />
       <pathelement location="${scala-parser-combinators}" />
-      
+
 
       <restrict>
         <path refid="scalacheck.classpath" />
@@ -906,11 +903,11 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
         </ns1:or></ns1:not>
       </restrict>
 
-      
+
       <pathelement location="${partest-extras.jar}" />
       <pathelement location="${partest-javaagent.jar}" />
 
-      
+
       <fileset dir="${partest.dir}/files/lib" includes="*.jar" />
     </path>
 
@@ -945,7 +942,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
     <path id="test.positions.sub.build.path" path="${build-quick.dir}/classes/library" />
 
-    
+
     <patternset id="lib.includes">
       <include name="**/*.tmpl" />
       <include name="**/*.xml" />
@@ -991,14 +988,14 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <clean build="sbt" /> <clean build="osgi" />
   </target>
 
-  
+
   <target depends="all.clean, dist.clean" name="allallclean" />
 
 
 
   <target depends="init" name="forkjoin.done"> <simple-javac args="-XDignore.symbol.file" jar="no" project="forkjoin" /></target>
 
-  
+
   <target depends="init.git" description="Produces a new STARR from current sources. Publishes core locally with a generated version number,     stored in build.properties as starr.version (overriding the one in versions.properties)." name="replacestarr">
     <antcall target="publish-core-local">
       <param name="maven.version.suffix" value="-STARR-${git.commit.sha}-SNAPSHOT" />
@@ -1046,7 +1043,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
     <staged-pack project="repl-jline" />
 
-    
+
     <copy todir="${build-quick.dir}/classes/repl">
       <zipfileset src="${build-pack.dir}/${repl-jline.targetdir}/${repl-jline.targetjar}" />
     </copy>
@@ -1082,10 +1079,10 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
   <target depends="quick.reflect" name="pack.reflect"> <staged-pack project="reflect" /> </target>
 
-  
+
   <target depends="quick.comp, quick.scaladoc, quick.interactive, quick.repl" name="pack.comp">
     <staged-pack manifest="${build-pack.dir}/META-INF/MANIFEST.MF" project="compiler">
-      <pre> 
+      <pre>
       <!-- HACK
         <copy todir="${build-pack.dir}/lib">
           <resources refid="repl.fileset" />
@@ -1104,7 +1101,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
           <attribute name="Class-Path" value="scala-reflect.jar scala-library.jar" />
         </manifest>
       </pre>
-      
+
       <jar-opts>
         <service provider="scala.tools.nsc.interpreter.IMain$Factory" type="javax.script.ScriptEngineFactory" />
       </jar-opts>
@@ -1112,7 +1109,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
   </target>
 
   <target name="pack.scaladoc" depends="quick.scaladoc">       <staged-pack project="scaladoc"/> </target>
-  <target name="pack.interactive" depends="quick.interactive"> <staged-pack project="interactive"/> </target> 
+  <target name="pack.interactive" depends="quick.interactive"> <staged-pack project="interactive"/> </target>
 
   <target depends="quick.actors" name="pack.actors"> <staged-pack project="actors" /> </target>
 
@@ -1120,7 +1117,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
   <target depends="pack.reflect, pack.comp, pack.lib" name="pack.core" />
 
-  
+
   <target depends="pack.actors, pack.scalap" name="pack.modules">
     <!-- HACK
     <copy todir="${build-pack.dir}/lib">
@@ -1130,7 +1127,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     -->
   </target>
 
-  
+
   <target depends="pack.core, pack.modules" name="scaladoc.task" unless="docs.skip">
     <taskdef classpathref="scaladoc.classpath" resource="scala/tools/ant/antlib.xml" />
   </target>
@@ -1139,7 +1136,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <staged-bin stage="pack" />
   </target>
 
-  
+
   <target depends="quick.done, pack.bin" name="pack.done" />
 
 
@@ -1154,13 +1151,13 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
 
 
-  
+
 
 
   <target depends="strap.done" name="test.stability">
     <exec executable="${basedir}/tools/stability-test.sh" failonerror="true" osfamily="unix" vmlauncher="false" />
-    
-    
+
+
   </target>
 
   <target description="Optimized version of test.stability." name="test.stability-opt"> <optimized name="test.stability" /></target>
@@ -1170,14 +1167,14 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
         <available file="${sbt.interface.jar}" />
         <available file="${sbt.interface.src.jar}" /></and></not>
     <then>
-      
+
       <mkdir dir="${sbt.src.dir}" />
       <mkdir dir="${sbt.lib.dir}" />
 
       <get dest="${sbt.interface.jar}" src="${sbt.interface.url}" />
       <get dest="${sbt.interface.src.jar}" src="${sbt.interface.src.url}" />
 
-      
+
       <unzip dest="${sbt.src.dir}" src="${sbt.interface.src.jar}" />
     </then></if>
 
@@ -1223,11 +1220,11 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <stopwatch action="total" name="test.junit.timer" />
   </target>
 
-  
+
   <target depends="" name="test.suite.init">
-    
+
     <propertyfile file="build/pack/partest.properties">
-      
+
       <entry key="partest.classpath" value="${toString:partest.compilation.path}" />
     </propertyfile>
   </target>
@@ -1263,28 +1260,28 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     <testSuite kinds="presentation" />
   </target>
 
-  
+
   <target depends="test.sbt, test.junit, test.interactive, test.scaladoc, test.suite" name="test.core" />
   <target depends="test.core, test.stability" name="test.done" />
 
 
   <target depends="scaladoc.task" name="docs.start" unless="docs.skip">
-    
-    
+
+
     <condition property="scaladoc.git.commit" value="v${maven.version.number}">
       <isset property="build.release" />
     </condition>
-    
+
     <condition property="scaladoc.git.commit" value="${git.commit.sha}">
       <not><equals arg1="${git.commit.sha}" arg2="unknown" /></not>
     </condition>
-    
+
     <property name="scaladoc.git.commit" value="master" />
-    
+
     <property name="scaladoc.url" value="https://github.com/scala/scala/tree/${scaladoc.git.commit}/src" />
     <echo message="Scaladoc will point to ${scaladoc.url} for source files." />
 
-    
+
     <property name="scaladoc.raw.output" value="no" />
     <property name="scaladoc.no.prefixes" value="no" />
   </target>
@@ -1310,7 +1307,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
     </staged-docs>
   </target>
 
-  
+
 
   <target depends="docs.start" name="docs.actors" unless="docs.skip">
     <staged-docs project="actors">
@@ -1325,11 +1322,11 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
   </target>
 
   <target depends="docs.lib, docs.reflect, docs.comp" name="docs.core" unless="docs.skip" />
-  
+
   <target depends="docs.core, docs.actors, docs.scalap" name="docs.done" unless="docs.skip" />
 
-  
-  <target depends="scaladoc.task" name="pack.doc" unless="docs.skip"> 
+
+  <target depends="scaladoc.task" name="pack.doc" unless="docs.skip">
     <mkdir dir="${build-pack.dir}/doc" />
     <copy overwrite="true" toDir="${build-pack.dir}/doc">
       <fileset dir="${doc.dir}" />
@@ -1348,7 +1345,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
       </do>
     </staged-uptodate>
 
-    
+
     <fixcrlf destdir="${build-pack.dir}/man" eol="unix" includes="**/*.1" srcdir="${build-manual.dir}/genman" />
     <copy overwrite="true" todir="${build-pack.dir}/doc/tools">
       <fileset dir="${src.dir}/manual/scala/tools/docutil/resources">
@@ -1371,7 +1368,7 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
 
     <copy file="${src.dir}/build/maven/scala-library-all-pom.xml" overwrite="true" tofile="${dist.maven}/scala-library-all/scala-library-all-pom.xml" />
 
-    
+
     <if><isset property="update.starr.version" /><then>
       <echo message="From now on, ${maven.version.number} will be used as STARR (`build.properties`'s `starr.version` was modified)." />
       <propertyfile file="build.properties">
@@ -1381,11 +1378,11 @@ SuperSabbus for Scala core, builds the scala library and compiler. It can also p
   </target>
 
   <target depends="pack-maven.core, docs.done, pack.bin, pack.doc" name="pack-maven.done">
-    
+
 
     <mvn-package project="actors" />
 
-    
+
     <copy file="${src.dir}/build/maven/scalap-pom.xml" overwrite="true" tofile="${dist.maven}/scalap/scalap-pom.xml" />
     <copy file="${scalap.jar}" overwrite="true" tofile="${dist.maven}/scalap/scalap.jar" />
     <jar basedir="${src.dir}/scalap" destfile="${dist.maven}/scalap/scalap-src.jar" whenmanifestonly="fail" />

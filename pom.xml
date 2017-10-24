@@ -15,6 +15,11 @@
         <version>1.8</version>
         <dependencies>
            <dependency>
+             <groupId>org.apache.ant</groupId>
+             <artifactId>ant</artifactId>
+             <version>1.9.2</version>
+           </dependency>
+           <dependency>
               <groupId>ant-contrib</groupId>
               <artifactId>ant-contrib</artifactId>
               <version>1.0b3</version>
@@ -25,18 +30,54 @@
                 </exclusion>
               </exclusions>
            </dependency>
+           <dependency>
+              <groupId>org.eclipse.aether</groupId>
+              <artifactId>aether-ant-tasks</artifactId>
+              <version>1.0.1.v20141111</version>
+           </dependency>
+           <dependency>
+              <groupId>org.scala-lang</groupId>
+              <artifactId>scala-compiler</artifactId>
+              <version>2.11.8</version>
+           </dependency>
+           <dependency>
+             <groupId>org.scala-lang.modules</groupId>
+             <artifactId>scala-asm</artifactId>
+             <version>5.0.4-scala-3</version>
+           </dependency>
+           <dependency>
+             <groupId>org.scala-lang.modules</groupId>
+             <artifactId>scala-partest_2.11</artifactId>
+             <version>1.0.13</version>
+           </dependency>
+	   <dependency>
+             <groupId>jline</groupId>
+             <artifactId>jline</artifactId>
+             <version>2.12.1</version>
+           </dependency>
+           <dependency>
+              <groupId>com.sun</groupId>
+              <artifactId>tools</artifactId>
+              <version>1.8.0</version>
+              <scope>system</scope>
+              <systemPath>${java.home}/../lib/tools.jar</systemPath>
+           </dependency>
         </dependencies>
         <executions>
           <execution>
-            <id>scala-antrun</id>
-            <phase>prepare-package</phase>
+            <id>package</id>
+            <phase>package</phase>
             <goals>
               <goal>run</goal>
             </goals>
             <configuration>
               <target>
                 <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath"/>
-                <ant antfile="${basedir}/build.xml" target="build"/>`
+                <typedef resource="org/eclipse/aether/ant/antlib.xml" uri="antlib:org.eclipse.aether.ant" classpathref="maven.plugin.classpath"/>
+                <taskdef resource="scala/tools/ant/sabbus/antlib.xml" classpathref="maven.plugin.classpath"/>
+                <property name="maven-plugin-jars" refid="maven.plugin.classpath"/>
+                <ant antfile="${basedir}/build.xml" target="distpack-maven-opt">
+                </ant>
               </target>
             </configuration>
           </execution>

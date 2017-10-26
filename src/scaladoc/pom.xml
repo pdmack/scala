@@ -6,41 +6,20 @@
         <version>2.11.8.redhat-1</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
-    <artifactId>scala-compiler</artifactId>
-
-    <properties>
-        <scala.xml.version>1.0.4</scala.xml.version>
-        <scala.pc.version>1.0.4</scala.pc.version>
-    </properties>
+    <artifactId>scala-scaladoc</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
-            <artifactId>scala-compiler</artifactId>
-            <version>${scala.version}</version>
+            <artifactId>scala-library</artifactId>
+            <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
             <version>${ant.version}</version>
         </dependency>
-        <dependency> <!-- for scala-compiler-doc -->
-            <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-xml_${scala.compat.version}</artifactId>
-            <version>${scala.xml.version}</version>
-        </dependency>
-        <dependency> <!-- for scala-compiler-doc -->
-            <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-parser-combinators_${scala.compat.version}</artifactId>
-            <version>${scala.pc.version}</version>
-        </dependency>
-        <dependency> <!-- for scala-compiler-repl -->
-            <groupId>jline</groupId>
-            <artifactId>jline</artifactId>
-            <version>${jline.version}</version>
-            <optional>true</optional>
-        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -62,24 +41,28 @@
         <sourceDirectory>scala</sourceDirectory>
         <plugins>
             <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.2</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>net.alchim31.maven</groupId>
+                            <artifactId>scala-maven-plugin</artifactId>
+                            <version>3.3.1</version>
                             <configuration>
-                                <args>
-                                    <arg>-dependencyfile</arg>
-                                    <arg>${project.build.directory}/.scala_dependencies</arg>
-                                </args>
+                                <jvmArgs>
+                                    <jvmArg>-Xms64m</jvmArg>
+                                    <jvmArg>-Xmx1024m</jvmArg>
+                                </jvmArgs>
                             </configuration>
-                        </configuration>
-                    </execution>
-                </executions>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -96,5 +79,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

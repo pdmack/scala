@@ -16,10 +16,15 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <junit.version>4.11</junit.version>
         <scala.plugin.version>3.3.1</scala.plugin.version>
+        <scala.version>2.11.8</scala.version>
         <starr.version>2.11.7</starr.version>
         <scala.compat.version>2.11</scala.compat.version>
         <specs2.version>3.8</specs2.version>
         <scalatest.version>2.2.6</scalatest.version>
+        <surefire.version>2.20.1</surefire.version>
+        <partest.version>1.0.13</partest.version>
+        <jline.version>2.12.1</jline.version>
+        <ant.version>1.10.1</ant.version>
     </properties>
 
     <build>
@@ -41,6 +46,12 @@
         <module>src/reflect</module>
         <module>src/scalap</module>
         <module>src/actors</module>
+        <module>src/interactive</module>
+        <module>src/partest-extras</module>
+        <module>src/partest-javaagent</module>
+        <module>src/repl</module>
+        <module>src/repl-jline</module>
+        <module>src/scaladoc</module>
     </modules>
 
     <dependencyManagement>

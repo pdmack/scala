@@ -6,7 +6,7 @@
     <version>2.11.8.redhat-1</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
-  <artifactId>scala-library</artifactId>
+  <artifactId>forkjoin</artifactId>
 
   <properties>
   </properties>
@@ -14,8 +14,13 @@
   <dependencies>
     <dependency>
       <groupId>org.scala-lang</groupId>
-      <artifactId>forkjoin</artifactId>
-      <version>${project.version}</version>
+      <artifactId>scala-library</artifactId>
+      <version>${starr.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-compiler</artifactId>
+      <version>${starr.version}</version>
     </dependency>
 
     <dependency>

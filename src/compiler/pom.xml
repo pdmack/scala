@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.redhat.rhoads</groupId>
+        <groupId>org.scala-lang</groupId>
         <artifactId>scala</artifactId>
         <version>2.11.8.redhat-1</version>
         <relativePath>../../pom.xml</relativePath>
@@ -9,60 +9,71 @@
     <artifactId>scala-compiler</artifactId>
 
     <properties>
+        <jline.version>2.12.1</jline.version>
+        <scala.xml.version>1.0.4</scala.xml.version>
+        <scala.pc.version>1.0.4</scala.pc.version>
+        <ant.version>1.10.1</ant.version>
+        <CodeCacheSize>512m</CodeCacheSize>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
+            <artifactId>forkjoin</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>${starr.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-reflect</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
             <version>${starr.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.10.1</version>
+            <version>${ant.version}</version>
         </dependency>
         <dependency> <!-- for scala-compiler-doc -->
             <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-xml_2.11</artifactId>
-            <version>1.0.4</version>
+            <artifactId>scala-xml_${scala.compat.version}</artifactId>
+            <version>${scala.xml.version}</version>
         </dependency>
         <dependency> <!-- for scala-compiler-doc -->
             <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-parser-combinators_2.11</artifactId>
-            <version>1.0.4</version>
+            <artifactId>scala-parser-combinators_${scala.compat.version}</artifactId>
+            <version>${scala.pc.version}</version>
         </dependency>
-        <dependency> <!-- for scala-compiler-repl; once it moves there, make it required -->
+        <dependency> <!-- for scala-compiler-repl -->
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>
-            <version>2.12.1</version>
+            <version>${jline.version}</version>
             <optional>true</optional>
         </dependency>
-        <!--
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.specs2</groupId>
             <artifactId>specs2-core_${scala.compat.version}</artifactId>
-            <version>2.4.16</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_${scala.compat.version}</artifactId>
-            <version>2.2.4</version>
             <scope>test</scope>
         </dependency>
-        -->
     </dependencies>
 
     <build>

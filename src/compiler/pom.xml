@@ -9,15 +9,15 @@
     <artifactId>scala-compiler</artifactId>
 
     <properties>
-        <scala.xml.version>1.0.4</scala.xml.version>
-        <scala.pc.version>1.0.4</scala.pc.version>
+        <scala.xml.version>1.0.6</scala.xml.version>
+        <scala.pc.version>1.0.5</scala.pc.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-compiler</artifactId>
-            <version>${scala.version}</version>
+            <version>${starr.version}</version>
         </dependency>
 
         <dependency>
@@ -72,6 +72,7 @@
                         </goals>
                         <configuration>
                             <configuration>
+                                <scalaVersion>${starr.version}</scalaVersion>
                                 <args>
                                     <arg>-dependencyfile</arg>
                                     <arg>${project.build.directory}/.scala_dependencies</arg>

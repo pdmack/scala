@@ -6,7 +6,7 @@
         <version>2.11.8.redhat-1</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
-    <artifactId>partest-extras</artifactId>
+    <artifactId>manual</artifactId>
 
     <dependencies>
         <dependency>
@@ -15,9 +15,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-partest_${scala.compat.version}</artifactId>
-            <version>${partest.version}</version>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>${ant.version}</version>
         </dependency>
 
         <dependency>
@@ -41,22 +41,28 @@
         <sourceDirectory>scala</sourceDirectory>
         <plugins>
             <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
-                            <args>
-                                <arg>-dependencyfile</arg>
-                                <arg>${project.build.directory}/.scala_dependencies</arg>
-                            </args>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.5</version>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.9</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>net.alchim31.maven</groupId>
+                            <artifactId>scala-maven-plugin</artifactId>
+                            <version>3.3.1</version>
+                            <configuration>
+                                <jvmArgs>
+                                    <jvmArg>-Xms64m</jvmArg>
+                                    <jvmArg>-Xmx1024m</jvmArg>
+                                </jvmArgs>
+                            </configuration>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

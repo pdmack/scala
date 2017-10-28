@@ -6,7 +6,7 @@
     <version>2.11.8.redhat-1</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
-  <artifactId>scala-interactive</artifactId>
+  <artifactId>interactive</artifactId>
 
   <dependencies>
     <dependency>

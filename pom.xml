@@ -16,9 +16,9 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <junit.version>4.11</junit.version>
         <scala.plugin.version>3.3.1</scala.plugin.version>
-        <scala.version>2.11.8</scala.version>
-        <starr.version>2.11.7</starr.version>
+        <starr.version>2.11.8</starr.version>
         <scala.compat.version>2.11</scala.compat.version>
+        <scala.asm.version>5.0.4-scala-3</scala.asm.version>
         <specs2.version>3.8</specs2.version>
         <scalatest.version>2.2.6</scalatest.version>
         <surefire.version>2.20.1</surefire.version>
@@ -40,7 +40,6 @@
     </build>
 
     <modules>
-        <module>src/forkjoin</module>
         <module>src/library</module>
         <module>src/compiler</module>
         <module>src/reflect</module>
@@ -52,6 +51,7 @@
         <module>src/repl</module>
         <module>src/repl-jline</module>
         <module>src/scaladoc</module>
+        <module>src/manual</module>
     </modules>
 
     <dependencyManagement>
